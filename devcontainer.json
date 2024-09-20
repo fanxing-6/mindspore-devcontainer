@@ -1,0 +1,18 @@
+// Info https://containers.dev/implementors/json_reference/
+{
+    "name": "mindnlp-container",
+    "build": {
+      dockerfile: "Dockerfile",
+    },
+    "runArgs": [
+      "-it",
+      "--runtime=nvidia",
+      "-v",
+      "/dev/shm:/dev/shm",
+    ],
+    "settings": {
+      "terminal.integrated.shell.linux": "/bin/bash"
+    },
+    "remoteUser": "root",
+    "containerUser": "root"
+  }
