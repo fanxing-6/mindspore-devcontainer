@@ -16,8 +16,12 @@ RUN /root/miniconda3/bin/conda init bash
 # Make sure the conda command is available in subsequent RUN commands
 ENV PATH="/root/miniconda3/bin:${PATH}"
 
-# Install MindSpore
-RUN pip install https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.2.14/MindSpore/unified/x86_64/mindspore-2.2.14-cp39-cp39-linux_x86_64.whl --trusted-host ms-release.obs.cn-north-4.myhuaweicloud.com -i https://pypi.tuna.tsinghua.edu.cn/simple
+# Create a new conda environment with Python 3.9
+RUN conda create -n mindspore39 python=3.9 -y
 
-# Set the default command to bash
-CMD ["/bin/bash"]
+# Activate the new environment and install MindSpore
+SHELL ["conda", "run", "-n", "mindspore39", "/bin/bash", "-c"]
+
+
+# Set the default command to bash, activating the mindspore39 environment
+CMD ["conda", "run", "--no-capture-output", "-n", "mindspore39", "/bin/bash"]
